@@ -1,24 +1,27 @@
 import useLoadImage from "@/hooks/useLoadImage";
+import usePlayer from "@/hooks/usePlayer";
 import { Song } from "@/types";
 import Image from "next/image";
 
 interface MediaItemProps {
   data: Song;
-  onClick: (id: string) => void;
+  onClick?: (id: string) => void;
 }
 
 const MediaItem = ({ data, onClick }: MediaItemProps) => {
+  const player = usePlayer();
   const imageUrl = useLoadImage(data);
 
-  const handleCLick = () => {
+  const handleClick = () => {
     if (onClick) {
       return onClick(data.id);
     }
 
-    // TODO: Default to player
+    return player.setId(data.id);
   };
   return (
     <div
+      onClick={handleClick}
       className="
       flex
       items-cover
