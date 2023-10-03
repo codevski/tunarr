@@ -62,7 +62,7 @@ const Modal = ({
           </Dialog.Title>
           <Dialog.Description
             className="
-              mb=5
+              mb-5
               text-sm
               leading-normal
               text-center
