@@ -13,6 +13,7 @@ import { useUser } from "@/hooks/useUser";
 
 import Button from "./Button";
 import { FaUserAlt } from "react-icons/fa";
+import usePlayer from "@/hooks/usePlayer";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ interface HeaderProps {
 }
 
 const Header = ({ children, className }: HeaderProps) => {
+  const player = usePlayer();
   const authModal = useAuthModal();
   const router = useRouter();
 
@@ -28,7 +30,7 @@ const Header = ({ children, className }: HeaderProps) => {
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    // TODO: Reset any playing songs
+    player.reset();
     if (error) {
       toast.error(error.message);
     } else {
@@ -45,7 +47,7 @@ const Header = ({ children, className }: HeaderProps) => {
     from-emerald-800
     p-6
   `,
-        className,
+        className
       )}
     >
       <div className="w-full mb-4 flex items-center justify-between">
